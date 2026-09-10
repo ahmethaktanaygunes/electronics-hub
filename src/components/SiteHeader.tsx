@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 
 export function SiteHeader() {
   return (
@@ -6,9 +7,14 @@ export function SiteHeader() {
       <div className="mx-auto flex h-12 max-w-[1360px] items-stretch px-0">
         <Link
           to="/"
-          className="flex items-center gap-3 border-r border-rule px-5 hover:bg-surface-2 transition-colors"
+          className="group flex items-center gap-2.5 border-r border-rule px-4 transition-colors hover:bg-surface-2 sm:px-5"
         >
-          <span className="value text-[15px] font-semibold tracking-tight">
+          <HElectronicsLogo
+            size={26}
+            title=""
+            className="shrink-0 transition-transform duration-300 group-hover:scale-[1.06]"
+          />
+          <span className="value text-[14px] font-semibold whitespace-nowrap tracking-tight sm:text-[15px]">
             Electronics with <span className="text-signal">Haktan</span>
           </span>
         </Link>

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { Hero } from "@/components/Hero";
 import { Curriculum } from "@/components/Curriculum";
 import { ResistorCalculator } from "@/components/tools/ResistorCalculator";
@@ -111,8 +112,11 @@ function Footer() {
   return (
     <footer className="bg-surface-2 border-t border-rule">
       <div className="mx-auto flex max-w-[1360px] flex-wrap items-center justify-between gap-3 px-5 py-6">
-        <span className="value text-[13px] font-semibold">
-          Electronics with <span className="text-signal">Haktan</span>
+        <span className="flex items-center gap-2">
+          <HElectronicsLogo size={20} title="" glow={false} />
+          <span className="value text-[13px] font-semibold">
+            Electronics with <span className="text-signal">Haktan</span>
+          </span>
         </span>
         <span className="label">Engineering Workbench · Practical Circuit Analysis</span>
         <span className="label">Track: Basic Electronics · doc rev 1.0</span>

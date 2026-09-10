@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { LessonOne } from "@/components/lesson/LessonOne";
 import { getLessonById, type Lesson, type LessonTopic } from "@/data/lessons";
 
@@ -123,8 +124,11 @@ function LessonPage() {
       </main>
       <footer className="border-t border-rule bg-surface-2">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-center justify-between gap-3 px-5 py-6">
-          <span className="value text-[13px] font-semibold">
-            Electronics with <span className="text-signal">Haktan</span>
+          <span className="flex items-center gap-2">
+            <HElectronicsLogo size={20} title="" glow={false} />
+            <span className="value text-[13px] font-semibold">
+              Electronics with <span className="text-signal">Haktan</span>
+            </span>
           </span>
           <Link to="/" hash="curriculum" className="label hover:text-foreground">
             ← Back to lesson index

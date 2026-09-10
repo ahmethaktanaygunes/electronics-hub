@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Electronics with Haktan">
+  <title>Electronics with Haktan</title>
+  <defs>
+    <linearGradient id="hkt-board" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122043" />
+      <stop offset="55%" stop-color="#0B1530" />
+      <stop offset="100%" stop-color="#050A18" />
+    </linearGradient>
+    <linearGradient id="hkt-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="32%" stop-color="#3B82F6" />
+      <stop offset="72%" stop-color="#1D4ED8" />
+      <stop offset="100%" stop-color="#16256B" />
+    </linearGradient>
+    <linearGradient id="hkt-trace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A5F3FC" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <radialGradient id="hkt-halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.85" />
+      <stop offset="55%" stop-color="#3B82F6" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0" />
+    </radialGradient>
+    <filter id="hkt-blur" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="1.6" />
+    </filter>
+    <filter id="hkt-glow" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="1.1" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#hkt-board)" />
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#3B82F6" stroke-opacity="0.5" stroke-width="1.2" />
+
+  <g filter="url(#hkt-blur)" opacity="0.5">
+    <ellipse cx="32" cy="33" rx="22" ry="20" fill="url(#hkt-halo)" />
+  </g>
+
+  <path d="M14 12 H24 V28 H40 V12 H50 V52 H40 V36 H24 V52 H14 Z" fill="url(#hkt-body)" />
+  <path d="M14 12 H24 V28 H40 V12 H50 V52 H40 V36 H24 V52 H14 Z" fill="none" stroke="#BFDBFE" stroke-opacity="0.3" stroke-width="0.8" />
+
+  <g fill="none" stroke="url(#hkt-trace)" stroke-width="0.9" stroke-linecap="square" stroke-opacity="0.9">
+    <path d="M9 32 H14" />
+    <path d="M17 15 V49" />
+    <path d="M17 22 L21.5 26.5" />
+    <path d="M26 32 H38" />
+    <path d="M50 32 H55" />
+    <path d="M47 15 V49" />
+    <path d="M47 42 L42.5 37.5" />
+  </g>
+
+  <g filter="url(#hkt-blur)" opacity="0.9">
+    <circle cx="9" cy="32" r="3.9" fill="url(#hkt-halo)" />
+    <circle cx="17" cy="15" r="3.64" fill="url(#hkt-halo)" />
+    <circle cx="17" cy="49" r="3.64" fill="url(#hkt-halo)" />
+    <circle cx="21.5" cy="26.5" r="2.86" fill="url(#hkt-halo)" />
+    <circle cx="32" cy="32" r="4.42" fill="url(#hkt-halo)" />
+    <circle cx="42.5" cy="37.5" r="2.86" fill="url(#hkt-halo)" />
+    <circle cx="47" cy="15" r="3.64" fill="url(#hkt-halo)" />
+    <circle cx="47" cy="49" r="3.64" fill="url(#hkt-halo)" />
+    <circle cx="55" cy="32" r="3.9" fill="url(#hkt-halo)" />
+  </g>
+
+  <g filter="url(#hkt-glow)">
+    <circle cx="9" cy="32" r="1.5" fill="#22D3EE" />
+    <circle cx="9" cy="32" r="0.68" fill="#ECFEFF" />
+    <circle cx="17" cy="15" r="1.4" fill="#22D3EE" />
+    <circle cx="17" cy="15" r="0.63" fill="#ECFEFF" />
+    <circle cx="17" cy="49" r="1.4" fill="#22D3EE" />
+    <circle cx="17" cy="49" r="0.63" fill="#ECFEFF" />
+    <circle cx="21.5" cy="26.5" r="1.1" fill="#22D3EE" />
+    <circle cx="21.5" cy="26.5" r="0.5" fill="#ECFEFF" />
+    <circle cx="32" cy="32" r="1.7" fill="#22D3EE" />
+    <circle cx="32" cy="32" r="0.77" fill="#ECFEFF" />
+    <circle cx="42.5" cy="37.5" r="1.1" fill="#22D3EE" />
+    <circle cx="42.5" cy="37.5" r="0.5" fill="#ECFEFF" />
+    <circle cx="47" cy="15" r="1.4" fill="#22D3EE" />
+    <circle cx="47" cy="15" r="0.63" fill="#ECFEFF" />
+    <circle cx="47" cy="49" r="1.4" fill="#22D3EE" />
+    <circle cx="47" cy="49" r="0.63" fill="#ECFEFF" />
+    <circle cx="55" cy="32" r="1.5" fill="#22D3EE" />
+    <circle cx="55" cy="32" r="0.68" fill="#ECFEFF" />
+  </g>
+</svg>
