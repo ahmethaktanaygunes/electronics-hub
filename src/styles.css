@@ -1,0 +1,251 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * ============================================================
+ * DESIGN SYSTEM — "Workbench"
+ * Electronics Engineering Education Platform
+ * ============================================================
+ *
+ * DESIGN PRINCIPLES
+ * 1. Instrument, not marketing. Every surface reads like a bench
+ *    instrument, datasheet, or reference manual page.
+ * 2. Density over decoration. Information first; no ornament that
+ *    does not carry data.
+ * 3. Structure via 1px rules and grids — never via shadow, glow,
+ *    glass, or large radii.
+ * 4. Monochrome base. Color is a signal: it marks active traces,
+ *    live values, warnings, and measured quantities only.
+ * 5. Monospace is semantic: it means "measured, specified, or
+ *    machine-readable" (values, pins, refdes, code, units).
+ *
+ * TYPOGRAPHY SYSTEM
+ *   --font-sans : IBM Plex Sans   — prose, headings, UI labels
+ *   --font-mono : IBM Plex Mono   — values, pinouts, code, specs
+ *   Scale: 11 / 12 / 13 / 15 / 18 / 22 / 30 / 44px (tight leading)
+ *   Labels: 11px mono, uppercase, +0.08em tracking.
+ *
+ * SPACING SYSTEM
+ *   4px base unit. Component padding steps: 8 / 12 / 16 / 24.
+ *   Section rhythm: 56px vertical, 24px gutter, max width 1360px.
+ *
+ * BORDER & GRID RULES
+ *   All borders exactly 1px, --rule color. Radius is 0 for panels
+ *   and 2px (--radius) for controls only. Panels tile against each
+ *   other and share borders (use -ml-px / -mt-px), never float.
+ *   Background grid = 8px minor / 40px major graticule.
+ *
+ * COMPONENT RULES
+ *   .panel        — bordered instrument surface, square corners
+ *   .panel-head   — 32px header strip, mono uppercase label
+ *   .label        — mono micro-label
+ *   .value        — tabular mono readout
+ *   .field        — bench input control
+ *   .btn / .btn-active — square-ish toggles, 1px border
+ *   .rule-x/.rule-y — hairline dividers
+ * ============================================================
+ */
+
+@theme inline {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--rule);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-input: var(--rule);
+  --color-ring: var(--ring);
+
+  /* Functional signal colors */
+  --color-signal: var(--signal);
+  --color-trace: var(--trace);
+  --color-copper: var(--copper);
+  --color-warn: var(--warn);
+}
+
+:root {
+  --radius: 2px;
+
+  /* Monochrome dark base — slate bench */
+  --background: #0f172a;
+  --surface: #141d33;
+  --surface-2: #1c2740;
+  --foreground: #e8eefc;
+  --muted: #1c2740;
+  --muted-foreground: #94a3b8;
+  --card: #141d33;
+  --card-foreground: var(--foreground);
+  --popover: #141d33;
+  --popover-foreground: var(--foreground);
+
+  --rule: #2b3654;
+  --rule-strong: #46557a;
+
+  --primary: #e8eefc;
+  --primary-foreground: #0f172a;
+  --secondary: #1c2740;
+  --secondary-foreground: var(--foreground);
+  --accent: #1c2740;
+  --accent-foreground: var(--foreground);
+  --destructive: #ef4444;
+  --destructive-foreground: #0f172a;
+  --ring: #d97706;
+
+  /* Signals */
+  --signal: #d97706;  /* PCB amber */
+  --trace: #10b981;   /* oscilloscope green */
+  --copper: #f59e0b;
+  --warn: #ef4444;
+}
+
+
+@layer base {
+  * {
+    border-color: var(--rule);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--signal) 28%, transparent);
+  }
+}
+
+/* --- Component rules ------------------------------------- */
+
+@utility graticule {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--rule) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--rule) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in oklab, var(--rule) 25%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--rule) 25%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+}
+
+@utility panel {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+@utility panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 32px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+@utility field {
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  outline: none;
+
+  &:focus {
+    border-color: var(--signal);
+    box-shadow: inset 0 0 0 1px var(--signal);
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--foreground);
+    border-color: var(--rule-strong);
+  }
+}
+
+@utility btn-active {
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
+
+  &:hover {
+    color: var(--background);
+  }
+}
+
+@utility hairline {
+  border-top: 1px solid var(--rule);
+}
