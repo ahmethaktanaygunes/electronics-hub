@@ -1,7 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { HElectronicsLogo } from "@/components/HElectronicsLogo";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useUi } from "@/i18n/languageContext";
 
 export function SiteHeader() {
+  const t = useUi();
+
   return (
     <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur-[2px]">
       <div className="mx-auto flex h-12 max-w-[1360px] items-stretch px-0">
@@ -19,9 +23,9 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <div className="flex items-center border-r border-rule px-4">
+        <div className="hidden items-center border-r border-rule px-4 md:flex">
           <span className="label text-[10px] border border-signal px-2 py-0.5 text-signal">
-            Engineering Workbench
+            {t.workbench}
           </span>
         </div>
 
@@ -29,17 +33,20 @@ export function SiteHeader() {
           <Link
             to="/"
             hash="curriculum"
-            className="flex items-center border-l border-rule px-4 text-[13px] text-muted-foreground hover:bg-surface-2 hover:text-foreground transition-colors"
+            className="flex items-center border-l border-rule px-4 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
           >
-            Lessons
+            {t.navLessons}
           </Link>
           <Link
             to="/"
             hash="tools"
-            className="flex items-center border-l border-rule px-4 text-[13px] text-muted-foreground hover:bg-surface-2 hover:text-foreground transition-colors"
+            className="hidden items-center border-l border-rule px-4 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground sm:flex"
           >
-            Calculators
+            {t.navCalculators}
           </Link>
+          <div className="flex items-center border-l border-rule px-3">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
     </header>

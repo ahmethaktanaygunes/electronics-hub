@@ -2,18 +2,32 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { QuizCard, type QuizResult } from "@/components/lesson/QuizCard";
-import type { LessonStep } from "@/components/lesson/lessonSteps";
+import type { LessonStep } from "@/components/lesson/lessonTypes";
+import { useUi } from "@/i18n/languageContext";
 
 export interface LessonPlayerProps {
   steps: LessonStep[];
   lessonId: string;
+  /** Lesson title shown on the completion card (already localized). */
+  lessonTitle: string;
+  /** Learning outcomes listed on the completion card (already localized). */
+  outcomes: string[];
+  /** Lesson id the "next lesson" button points at. */
+  nextLessonId: string;
 }
 
 /**
  * Card-by-card lesson engine: one step on screen at a time, a progress bar,
  * Back / Continue navigation and question steps that gate the flow.
  */
-export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
+export function LessonPlayer({
+  steps,
+  lessonId,
+  lessonTitle,
+  outcomes,
+  nextLessonId,
+}: LessonPlayerProps) {
+  const t = useUi();
   const total = steps.length;
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
@@ -86,6 +100,8 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
 
   const progress = finished ? 100 : Math.round((index / total) * 100);
   const isLast = index === total - 1;
+  const outcomeHalf = Math.ceil(outcomes.length / 2);
+  const outcomeColumns = [outcomes.slice(0, outcomeHalf), outcomes.slice(outcomeHalf)];
 
   const nextClasses = gateOpen
     ? "border-glow bg-glow/15 text-glow shadow-[0_0_24px_-6px_rgba(34,211,238,0.8)] hover:bg-glow/25"
@@ -102,13 +118,13 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
               hash="curriculum"
               className="label transition-colors hover:text-foreground"
             >
-              ← Lesson index
+              ← {t.lessonIndex}
             </Link>
             <span className="label border border-glow/40 px-2 py-0.5 whitespace-nowrap text-glow">
-              {finished ? "Complete" : step.section}
+              {finished ? t.complete : step.section}
             </span>
             <span className="value text-[12px] whitespace-nowrap text-muted-foreground">
-              Step {finished ? total : index + 1} / {total}
+              {t.stepCounter(finished ? total : index + 1, total)}
             </span>
           </div>
 
@@ -135,9 +151,9 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
         >
           <article className="panel">
             <div className="panel-head">
-              <span>{finished ? "Lesson complete" : `${step.section} · LES-${lessonId}`}</span>
+              <span>{finished ? t.complete : `${step.section} · LES-${lessonId}`}</span>
               <span className="value text-[11px] text-muted-foreground">
-                {finished ? `${correctCount}/${quizTotal} correct` : `${index + 1}/${total}`}
+                {finished ? `${correctCount}/${quizTotal}` : `${index + 1}/${total}`}
               </span>
             </div>
 
@@ -147,22 +163,18 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
                   <div className="flex flex-wrap items-center gap-3">
                     <HElectronicsLogo size={44} title="" animated />
                     <div>
-                      <p className="label">Lesson 1 finished</p>
+                      <p className="label">{t.lessonFinished}</p>
                       <h2 className="text-[24px] leading-tight font-semibold tracking-tight">
-                        Introduction to Electronics &amp; Ohm’s Law
+                        {lessonTitle}
                       </h2>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 border-t border-l border-rule sm:grid-cols-3">
                     {[
-                      ["Steps completed", `${total}`, "every card in the flow"],
-                      [
-                        "Answers correct",
-                        `${correctCount} / ${quizTotal}`,
-                        "solved without revealing",
-                      ],
-                      ["Solutions revealed", `${revealedCount}`, "review these before moving on"],
+                      [t.stepsCompleted, `${total}`, t.stepsCompletedHint],
+                      [t.answersCorrect, `${correctCount} / ${quizTotal}`, t.answersCorrectHint],
+                      [t.solutionsRevealed, `${revealedCount}`, t.solutionsRevealedHint],
                     ].map(([k, v, hint]) => (
                       <div
                         key={k}
@@ -177,36 +189,23 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
 
                   <div className="panel">
                     <div className="panel-head">
-                      <span>What you should be able to do now</span>
-                      <span className="value text-[11px]">LESSON 01</span>
+                      <span>{t.whatYouCanDo}</span>
+                      <span className="value text-[11px]">LES-{lessonId}</span>
                     </div>
                     <div className="grid grid-cols-1 divide-y divide-rule md:grid-cols-2 md:divide-x md:divide-y-0">
-                      <ul className="space-y-2 px-4 py-4">
-                        {[
-                          "Explain the difference between electricity and electronics.",
-                          "Name the three fundamental quantities and their SI units.",
-                          "Describe what resistance is and give three reasons to use a resistor.",
-                          "Convert between mA/A, kΩ/Ω, MΩ/Ω and mV/V without a calculator.",
-                        ].map((item) => (
-                          <li key={item} className="flex gap-2 text-[13.5px] text-muted-foreground">
-                            <span className="value shrink-0 text-trace">✓</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <ul className="space-y-2 px-4 py-4">
-                        {[
-                          "State Ohm’s Law and solve it for V, I and R.",
-                          "Predict how current changes when V or R changes.",
-                          "Size a series resistor for an LED from its forward voltage and target current.",
-                          "Describe the single current path in a series circuit.",
-                        ].map((item) => (
-                          <li key={item} className="flex gap-2 text-[13.5px] text-muted-foreground">
-                            <span className="value shrink-0 text-trace">✓</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {outcomeColumns.map((column, columnIndex) => (
+                        <ul key={columnIndex} className="space-y-2 px-4 py-4">
+                          {column.map((item) => (
+                            <li
+                              key={item}
+                              className="flex gap-2 text-[13.5px] text-muted-foreground"
+                            >
+                              <span className="value shrink-0 text-trace">✓</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ))}
                     </div>
                   </div>
 
@@ -216,14 +215,21 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
                       onClick={restart}
                       className="inline-flex h-11 items-center gap-2 border border-glow bg-glow/15 px-6 font-mono text-[12px] tracking-[0.06em] text-glow uppercase transition-colors hover:bg-glow/25"
                     >
-                      ↺ Restart lesson
+                      ↺ {t.restartLesson}
                     </button>
                     <Link
                       to="/"
                       hash="curriculum"
                       className="inline-flex h-11 items-center gap-2 border border-rule bg-surface px-6 font-mono text-[12px] tracking-[0.06em] text-muted-foreground uppercase transition-colors hover:border-rule-strong hover:text-foreground"
                     >
-                      Back to lesson index
+                      {t.backToLessonIndex}
+                    </Link>
+                    <Link
+                      to="/lessons/$lessonId"
+                      params={{ lessonId: nextLessonId }}
+                      className="inline-flex h-11 items-center gap-2 border border-rule bg-surface px-6 font-mono text-[12px] tracking-[0.06em] text-muted-foreground uppercase transition-colors hover:border-rule-strong hover:text-foreground"
+                    >
+                      {t.nextLesson} →
                     </Link>
                   </div>
                 </div>
@@ -261,13 +267,11 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
                 disabled={index === 0}
                 className="inline-flex h-11 items-center gap-2 border border-rule bg-surface px-5 font-mono text-[12px] tracking-[0.06em] text-muted-foreground uppercase transition-colors hover:border-rule-strong hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
               >
-                ← Back
+                ← {t.back}
               </button>
 
               <span className="label order-last w-full text-center sm:order-none sm:w-auto">
-                {gateOpen
-                  ? "Use ← / → on the keyboard, or the buttons"
-                  : "Answer correctly to unlock the next step"}
+                {gateOpen ? t.hintKeyboard : t.hintLocked}
               </span>
 
               <button
@@ -276,13 +280,13 @@ export function LessonPlayer({ steps, lessonId }: LessonPlayerProps) {
                 disabled={!gateOpen}
                 className={`inline-flex h-11 items-center gap-2 border px-6 font-mono text-[12px] tracking-[0.06em] uppercase transition-all duration-200 ${nextClasses}`}
               >
-                {isLast ? "Finish lesson" : "Continue"} →
+                {isLast ? t.finishLesson : t.continueLabel} →
               </button>
             </nav>
           )}
 
           <p className="mt-4 text-center text-[12px] text-muted-foreground">
-            {solvedCount} of {quizTotal} questions solved this run
+            {t.solvedCounter(solvedCount, quizTotal)}
           </p>
         </div>
       </div>

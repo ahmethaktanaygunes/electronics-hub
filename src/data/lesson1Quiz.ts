@@ -1,30 +1,12 @@
-export interface NumericQuizItem {
-  id: string;
-  kind: "numeric";
-  prompt: string;
-  unit: string;
-  answer: number;
-  /** Relative tolerance, e.g. 0.02 = ±2 % */
-  tolerance: number;
-  solution: string;
-}
+import type { NumericQuizItem, QuizGroup, TextQuizItem } from "@/data/quizTypes";
 
-export interface TextQuizItem {
-  id: string;
-  kind: "text";
-  prompt: string;
-  solution: string;
-}
-
-export type QuizItem = NumericQuizItem | TextQuizItem;
-
-export interface QuizGroup {
-  id: string;
-  label: string;
-  title: string;
-  instruction: string;
-  items: QuizItem[];
-}
+export type {
+  ChoiceQuizItem,
+  NumericQuizItem,
+  QuizGroup,
+  QuizItem,
+  TextQuizItem,
+} from "@/data/quizTypes";
 
 const n = (
   id: string,

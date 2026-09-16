@@ -1,3 +1,5 @@
+import type { Lang } from "@/i18n/lang";
+
 export interface LessonTopic {
   title: string;
   items: string[];
@@ -8,6 +10,13 @@ export interface LessonSyllabus {
   component: LessonTopic;
   law: LessonTopic;
   circuit: LessonTopic;
+}
+
+/** Per-language overrides for the lesson index and page header. */
+export interface LessonTranslation {
+  title: string;
+  subtitle: string;
+  summary: string;
 }
 
 export interface Lesson {
@@ -21,6 +30,19 @@ export interface Lesson {
   level: "Beginner" | "Intermediate" | "Advanced";
   published: boolean;
   syllabus: LessonSyllabus;
+  /** Optional translations — missing languages fall back to the English copy. */
+  translations?: Partial<Record<Lang, LessonTranslation>>;
+}
+
+/** Title / subtitle / summary for the active language, with English fallback. */
+export function lessonText(lesson: Lesson, lang: Lang): LessonTranslation {
+  return (
+    lesson.translations?.[lang] ?? {
+      title: lesson.title,
+      subtitle: lesson.subtitle,
+      summary: lesson.summary,
+    }
+  );
 }
 
 export const LESSONS: Lesson[] = [
@@ -77,36 +99,55 @@ export const LESSONS: Lesson[] = [
     id: "02",
     number: 2,
     slug: "02",
-    title: "LESSON 2: Kirchhoff’s Laws & Circuit Analysis",
-    subtitle: "Mastering Node Voltages and Branch Currents",
+    title: "LESSON 2: Series and Parallel Circuits",
+    subtitle: "Current Paths, Component Failure Behaviour and Everyday Circuits",
     summary:
-      "Kirchhoff's Current Law (KCL), Kirchhoff's Voltage Law (KVL), nodal analysis, and series-parallel resistor networks.",
+      "Identify series and parallel connections, explain how current paths differ, and build simple lamp circuits.",
     minutes: 20,
     level: "Beginner",
-    published: false,
+    published: true,
+    translations: {
+      tr: {
+        title: "DERS 2: Seri ve Paralel Devreler",
+        subtitle: "Akım Yolları, Eleman Arıza Davranışı ve Günlük Devreler",
+        summary:
+          "Seri ve paralel bağlantıları tanıyın, akım yollarının nasıl farklılaştığını açıklayın ve basit lamba devreleri kurun.",
+      },
+    },
     syllabus: {
       topics: {
         title: "Today's Topics",
         items: [
-          "Nodes, branches, and loops",
-          "KCL: Charge conservation at junctions",
-          "KVL: Energy conservation around closed paths",
+          "Series vs Parallel",
+          "Current paths",
+          "Component failure behavior",
+          "Circuit symbols & diagrams",
+          "Everyday examples",
         ],
       },
       component: {
-        title: "Today's Component: Resistor Networks",
+        title: "Today's Components: Lamps, Switch & Battery",
         items: [
-          "Equivalent series resistance (Req = R1 + R2)",
-          "Equivalent parallel resistance (1/Req = 1/R1 + 1/R2)",
+          "The lamp symbol (a circle with a cross)",
+          "Switch and battery symbols in a diagram",
+          "Why a real lamp behaves as a resistive load",
         ],
       },
       law: {
-        title: "Today's Law: Kirchhoff's Laws",
-        items: ["Sum of currents at a node = 0", "Sum of voltages in a loop = 0"],
+        title: "Today's Rules: Current and Voltage Sharing",
+        items: [
+          "Series: one current path, same current everywhere, voltage divides",
+          "Parallel: multiple paths, same voltage per branch, branch currents add up",
+          "Failure behaviour follows directly from the number of paths",
+        ],
       },
       circuit: {
-        title: "Today's Circuit: 2-Loop Resistor Ladder",
-        items: ["Calculating multi-node voltages", "Verifying branch currents"],
+        title: "Today's Circuits: Circuit A (Series) & Circuit B (Parallel)",
+        items: [
+          "Battery + switch + Lamp 1 + Lamp 2 in one loop (Circuit A)",
+          "Battery + switch + two separate lamp branches (Circuit B)",
+          "Observing brightness and what happens when a lamp is removed",
+        ],
       },
     },
   },

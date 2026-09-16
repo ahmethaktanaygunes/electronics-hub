@@ -1,8 +1,17 @@
+import type { ComponentType } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { LessonOne } from "@/components/lesson/LessonOne";
-import { getLessonById, type Lesson, type LessonTopic } from "@/data/lessons";
+import { LessonTwo } from "@/components/lesson/LessonTwo";
+import { getLessonById, lessonText, type Lesson, type LessonTopic } from "@/data/lessons";
+import { useLanguage, useUi } from "@/i18n/languageContext";
+
+/** Lessons that render the card-by-card step player. Everything else shows its syllabus. */
+const LESSON_VIEWS: Record<string, ComponentType> = {
+  "01": LessonOne,
+  "02": LessonTwo,
+};
 
 export const Route = createFileRoute("/lessons/$lessonId")({
   loader: ({ params }): { lesson: Lesson } => {
@@ -38,12 +47,16 @@ function lessonData(data: unknown): Lesson | undefined {
 
 function LessonPage() {
   const { lesson } = Route.useLoaderData() as { lesson: Lesson };
+  const t = useUi();
+  const { lang } = useLanguage();
+  const text = lessonText(lesson, lang);
+  const View = LESSON_VIEWS[lesson.id];
 
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main>
-        {lesson.id !== "01" && (
+        {!View && (
           <header className="border-b border-rule">
             <div className="mx-auto max-w-[1360px] px-5 py-10">
               <nav className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground">
@@ -52,7 +65,7 @@ function LessonPage() {
                 </Link>
                 <span className="value">/</span>
                 <Link to="/" hash="curriculum" className="hover:text-foreground">
-                  Lessons
+                  {t.navLessons}
                 </Link>
                 <span className="value">/</span>
                 <span className="value text-signal">{lesson.id}</span>
@@ -61,17 +74,17 @@ function LessonPage() {
               <div className="mt-4 flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-4">
                 <div>
                   <p className="label">
-                    Module {lesson.id} · {lesson.level}
+                    Module {lesson.id} · {t.levels[lesson.level]}
                   </p>
                   <h1 className="mt-2 max-w-[30ch] text-[30px] leading-[1.12] font-semibold tracking-tight md:text-[36px]">
-                    {lesson.title}
+                    {text.title}
                   </h1>
                   <p className="mt-2 max-w-[70ch] text-[15px] text-muted-foreground">
-                    {lesson.summary}
+                    {text.summary}
                   </p>
                 </div>
                 <span className="label border border-rule px-2 py-1 whitespace-nowrap">
-                  {lesson.minutes} min
+                  {lesson.minutes} {t.minAbbrev}
                 </span>
               </div>
 
@@ -92,15 +105,15 @@ function LessonPage() {
           </header>
         )}
 
-        {lesson.id === "01" ? (
-          <LessonOne />
+        {View ? (
+          <View />
         ) : (
           <section className="border-b border-rule">
             <div className="mx-auto max-w-[1360px] px-5 py-12">
               <div className="panel">
                 <div className="panel-head">
                   <span>Syllabus · module {lesson.id}</span>
-                  <span className="text-signal">content in preparation</span>
+                  <span>{t.comingSoon}</span>
                 </div>
                 <div className="grid grid-cols-1 gap-6 px-4 py-4 md:grid-cols-2">
                   {Object.values(lesson.syllabus).map((block: LessonTopic) => (

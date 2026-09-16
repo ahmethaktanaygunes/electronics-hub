@@ -1,20 +1,11 @@
-import type { ReactNode } from "react";
-import { CIRCUIT_QUESTIONS, UNIT_CONVERSIONS, type QuizItem } from "@/data/lesson1Quiz";
+import { CIRCUIT_QUESTIONS, UNIT_CONVERSIONS } from "@/data/lesson1Quiz";
+import type { QuizItem } from "@/data/quizTypes";
 import { OhmsLawSimulation } from "@/components/lesson/OhmsLawSimulation";
 import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { Bullets, Formula, InfoCard, StatTile, Worked } from "@/components/lesson/lessonUi";
+import type { LessonStep } from "@/components/lesson/lessonTypes";
 
-export interface LessonStep {
-  id: string;
-  /** Group label shown in the progress header. */
-  section: string;
-  title: string;
-  subtitle?: string;
-  /** Body for concept / simulation steps. */
-  content?: ReactNode;
-  /** When present, the step is a gated question. */
-  quiz?: QuizItem;
-}
+export type { LessonStep };
 
 const QUIZ_BY_ID: Record<string, QuizItem> = Object.fromEntries(
   [...UNIT_CONVERSIONS.items, ...CIRCUIT_QUESTIONS.items].map((item) => [item.id, item]),
