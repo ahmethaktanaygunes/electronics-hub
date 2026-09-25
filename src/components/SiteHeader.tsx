@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { AuthStatus } from "@/components/AuthStatus";
 import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useUi } from "@/i18n/languageContext";
@@ -18,7 +19,7 @@ export function SiteHeader() {
             title=""
             className="shrink-0 transition-transform duration-300 group-hover:scale-[1.06]"
           />
-          <span className="value text-[14px] font-semibold whitespace-nowrap tracking-tight sm:text-[15px]">
+          <span className="value hidden text-[14px] font-semibold tracking-tight whitespace-nowrap sm:inline sm:text-[15px]">
             Electronics with <span className="text-signal">Haktan</span>
           </span>
         </Link>
@@ -47,6 +48,7 @@ export function SiteHeader() {
           <div className="flex items-center border-l border-rule px-3">
             <LanguageSwitcher />
           </div>
+          <AuthStatus />
         </div>
       </div>
     </header>

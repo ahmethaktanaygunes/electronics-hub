@@ -59,6 +59,34 @@ export interface UiStrings {
   restartLesson: string;
   backToLessonIndex: string;
   nextLesson: string;
+
+  /** Authentication */
+  signIn: string;
+  signUp: string;
+  signOut: string;
+  myAccount: string;
+  loading: string;
+  loginTitle: string;
+  loginSubtitle: string;
+  registerTitle: string;
+  registerSubtitle: string;
+  fullName: string;
+  authEmail: string;
+  authPassword: string;
+  continueWithGoogle: string;
+  orDivider: string;
+  noAccount: string;
+  haveAccount: string;
+  createAccount: string;
+  errNameMin: string;
+  errEmailRequired: string;
+  errEmailInvalid: string;
+  errPasswordMin: string;
+  errPasswordRequired: string;
+  errInvalidCredentials: string;
+  errEmailTaken: string;
+  errGeneric: string;
+  errGoogle: string;
 }
 
 export const UI: Record<Lang, UiStrings> = {
@@ -117,6 +145,33 @@ export const UI: Record<Lang, UiStrings> = {
     restartLesson: "Restart lesson",
     backToLessonIndex: "Back to lesson index",
     nextLesson: "Next lesson",
+
+    signIn: "Sign in",
+    signUp: "Sign up",
+    signOut: "Sign out",
+    myAccount: "My account",
+    loading: "Loading…",
+    loginTitle: "Sign in",
+    loginSubtitle: "Welcome back. Continue where you left off.",
+    registerTitle: "Create an account",
+    registerSubtitle: "Create an account to enrol in live lessons.",
+    fullName: "Full name",
+    authEmail: "Email",
+    authPassword: "Password",
+    continueWithGoogle: "Continue with Google",
+    orDivider: "or",
+    noAccount: "No account yet?",
+    haveAccount: "Already have an account?",
+    createAccount: "Create account",
+    errNameMin: "Please enter your name.",
+    errEmailRequired: "Email is required.",
+    errEmailInvalid: "Enter a valid email address.",
+    errPasswordMin: "Password must be at least 8 characters.",
+    errPasswordRequired: "Password is required.",
+    errInvalidCredentials: "Sign-in failed. Check your email and password.",
+    errEmailTaken: "That email address is already registered.",
+    errGeneric: "Something went wrong. Please try again.",
+    errGoogle: "Google sign-in could not be completed.",
   },
 
   tr: {
@@ -174,5 +229,32 @@ export const UI: Record<Lang, UiStrings> = {
     restartLesson: "Dersi baştan başlat",
     backToLessonIndex: "Ders listesine dön",
     nextLesson: "Sonraki ders",
+
+    signIn: "Giriş yap",
+    signUp: "Kayıt ol",
+    signOut: "Çıkış yap",
+    myAccount: "Hesabım",
+    loading: "Yükleniyor…",
+    loginTitle: "Giriş yap",
+    loginSubtitle: "Tekrar hoş geldiniz. Kaldığınız yerden devam edin.",
+    registerTitle: "Hesap oluştur",
+    registerSubtitle: "Canlı derslere kaydolmak için bir hesap oluşturun.",
+    fullName: "Ad soyad",
+    authEmail: "E-posta",
+    authPassword: "Şifre",
+    continueWithGoogle: "Google ile devam et",
+    orDivider: "veya",
+    noAccount: "Henüz hesabınız yok mu?",
+    haveAccount: "Zaten hesabınız var mı?",
+    createAccount: "Hesap oluştur",
+    errNameMin: "Lütfen adınızı girin.",
+    errEmailRequired: "E-posta gereklidir.",
+    errEmailInvalid: "Geçerli bir e-posta adresi girin.",
+    errPasswordMin: "Şifre en az 8 karakter olmalıdır.",
+    errPasswordRequired: "Şifre gereklidir.",
+    errInvalidCredentials: "Giriş başarısız. E-posta ve şifrenizi kontrol edin.",
+    errEmailTaken: "Bu e-posta adresi zaten kayıtlı.",
+    errGeneric: "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    errGoogle: "Google ile giriş tamamlanamadı.",
   },
 };
