@@ -5,6 +5,7 @@ import { Hero } from "@/components/Hero";
 import { Curriculum } from "@/components/Curriculum";
 import { ResistorCalculator } from "@/components/tools/ResistorCalculator";
 import { OhmsLaw } from "@/components/tools/OhmsLaw";
+import { useUi } from "@/i18n/languageContext";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,28 +49,17 @@ function Index() {
 }
 
 function Approach() {
+  const t = useUi();
   const items = [
-    [
-      "01",
-      "Derive before you simulate",
-      "Each concept starts from the governing equation and a hand-calculated component value. Simulation only checks the derivation.",
-    ],
-    [
-      "02",
-      "Every value is measurable",
-      "Each circuit is drawn so it can be built on a breadboard and probed, then compared against the predicted node voltages.",
-    ],
-    [
-      "03",
-      "Tolerances are part of the answer",
-      "E-series rounding, resistor tolerance and power derating are treated as first-class design inputs, not footnotes.",
-    ],
+    ["01", t.methodItems[0].title, t.methodItems[0].description],
+    ["02", t.methodItems[1].title, t.methodItems[1].description],
+    ["03", t.methodItems[2].title, t.methodItems[2].description],
   ];
 
   return (
     <section className="border-b border-rule bg-surface">
       <div className="mx-auto max-w-[1360px] px-5 py-10">
-        <p className="label">Section 02 · Method</p>
+        <p className="label">{t.methodSection}</p>
         <div className="mt-4 grid grid-cols-1 border-t border-l border-rule md:grid-cols-3">
           {items.map(([n, t, d]) => (
             <article key={n} className="-mt-px -ml-px border-t border-l border-rule p-5">
@@ -85,17 +75,17 @@ function Approach() {
 }
 
 function Tools() {
+  const t = useUi();
   return (
     <section id="tools" className="border-b border-rule">
       <div className="mx-auto max-w-[1360px] px-5 py-12">
         <div className="border-b border-rule pb-4">
-          <p className="label">Section 04 · Interactive workbench</p>
+          <p className="label">{t.toolsSection}</p>
           <h2 className="mt-1 text-[26px] font-semibold tracking-tight">
-            Basic electronics calculators
+            {t.toolsTitle}
           </h2>
           <p className="mt-2 max-w-[70ch] text-[14px] text-muted-foreground">
-            Live tools for the fundamentals. Enter measured or specified values; results update as
-            you type.
+            {t.toolsLead}
           </p>
         </div>
 
@@ -109,6 +99,7 @@ function Tools() {
 }
 
 function Footer() {
+  const t = useUi();
   return (
     <footer className="bg-surface-2 border-t border-rule">
       <div className="mx-auto flex max-w-[1360px] flex-wrap items-center justify-between gap-3 px-5 py-6">
@@ -118,8 +109,8 @@ function Footer() {
             Electronics with <span className="text-signal">Haktan</span>
           </span>
         </span>
-        <span className="label">Engineering Workbench · Practical Circuit Analysis</span>
-        <span className="label">Track: Basic Electronics · doc rev 1.0</span>
+        <span className="label">{t.workbench}</span>
+        <span className="label">{t.footerTrack}</span>
       </div>
     </footer>
   );

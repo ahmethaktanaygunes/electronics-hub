@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUi } from "@/i18n/languageContext";
 
 const BANDS = [
   { name: "black", digit: 0, mult: 1, hex: "#0b0b0b" },
@@ -27,6 +28,7 @@ function format(ohms: number) {
 }
 
 export function ResistorCalculator() {
+  const t = useUi();
   const [mode, setMode] = useState<4 | 5>(4);
   const [b1, setB1] = useState(1); // brown
   const [b2, setB2] = useState(0); // black
@@ -49,23 +51,23 @@ export function ResistorCalculator() {
   return (
     <div className="panel">
       <div className="panel-head">
-        <span>Tool 01 · Resistor colour code</span>
+        <span>{t.resistorTool}</span>
         <span className="text-signal">IEC 60062</span>
       </div>
 
       <div className="flex items-center gap-2 border-b border-rule px-3 py-2">
-        <span className="label">Bands</span>
+        <span className="label">{t.bands}</span>
         {[4, 5].map((m) => (
           <button
             key={m}
             onClick={() => setMode(m as 4 | 5)}
             className={`btn ${mode === m ? "btn-active" : ""}`}
           >
-            {m}-band
+            {m}-{t.band}
           </button>
         ))}
         <span className="label ml-auto hidden sm:inline">
-          {mode === 4 ? "2 digits + mult + tol" : "3 digits + mult + tol"}
+          {mode === 4 ? `2 ${t.digits} + ${t.multiplier} + ${t.tolerance}` : `3 ${t.digits} + ${t.multiplier} + ${t.tolerance}`}
         </span>
       </div>
 
@@ -97,7 +99,7 @@ export function ResistorCalculator() {
           <span className="value text-[30px] tracking-tight text-trace">{format(value)}</span>
           <span className="value text-[15px] text-signal">±{tolerance}%</span>
           <span className="value text-[12px] text-muted-foreground">
-            range {format(min)} … {format(max)}
+            {t.range} {format(min)} … {format(max)}
           </span>
         </div>
       </div>

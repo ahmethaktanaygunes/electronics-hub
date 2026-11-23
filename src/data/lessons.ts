@@ -57,6 +57,14 @@ export const LESSONS: Lesson[] = [
     minutes: 25,
     level: "Beginner",
     published: true,
+    translations: {
+      tr: {
+        title: "DERS 1: Elektroniğe Giriş ve Ohm Kanunu",
+        subtitle: "Yük, Potansiyel, Direnç ve Seri Devre Korumanın Temelleri",
+        summary:
+          "Elektrik ile elektronik arasındaki farkı anlayın, temel büyüklükleri (V, I, R) öğrenin, direnç fiziğini ve birim dönüşümlerini inceleyin, Ohm Kanunu'nu türetin ve Koruyucu Pil + Direnç + LED devresi kurun.",
+      },
+    },
     syllabus: {
       topics: {
         title: "Today's Topics",

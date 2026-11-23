@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useUi } from "@/i18n/languageContext";
 
 type Key = "V" | "I" | "R" | "P";
 
 const UNITS: Record<Key, string> = { V: "V", I: "A", R: "Ω", P: "W" };
-const NAMES: Record<Key, string> = {
-  V: "Voltage",
-  I: "Current",
-  R: "Resistance",
-  P: "Power",
-};
 
 export function OhmsLaw() {
+  const t = useUi();
+  const names: Record<Key, string> = {
+    V: t.voltage,
+    I: t.current,
+    R: t.resistance,
+    P: t.power,
+  };
   const [known, setKnown] = useState<[Key, Key]>(["V", "R"]);
   const [a, setA] = useState("5");
   const [b, setB] = useState("220");
@@ -26,13 +28,13 @@ export function OhmsLaw() {
   return (
     <div className="panel">
       <div className="panel-head">
-        <span>Tool 02 · Ohm&apos;s law matrix</span>
+        <span>{t.ohmsLawTool}</span>
         <span className="value text-[10px]">V=IR · P=VI</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[260px_1fr]">
         <div className="border-rule p-3 md:border-r">
-          <div className="label mb-2">Select two known quantities</div>
+          <div className="label mb-2">{t.selectKnown}</div>
           <div className="grid grid-cols-2 gap-1">
             {(["V", "I", "R", "P"] as Key[]).map((k) => (
               <button
@@ -40,14 +42,14 @@ export function OhmsLaw() {
                 onClick={() => toggle(k)}
                 className={`btn h-9 justify-start ${known.includes(k) ? "btn-active" : ""}`}
               >
-                {k} · {NAMES[k]}
+                {k} · {names[k]}
               </button>
             ))}
           </div>
 
           <div className="mt-4 space-y-3">
-            <Field label={`${NAMES[known[0]]} (${UNITS[known[0]]})`} value={a} onChange={setA} />
-            <Field label={`${NAMES[known[1]]} (${UNITS[known[1]]})`} value={b} onChange={setB} />
+            <Field label={`${names[known[0]]} (${UNITS[known[0]]})`} value={a} onChange={setA} />
+            <Field label={`${names[known[1]]} (${UNITS[known[1]]})`} value={b} onChange={setB} />
           </div>
         </div>
 
@@ -61,9 +63,9 @@ export function OhmsLaw() {
                 className="-ml-px -mt-px border-t border-l border-rule p-4"
               >
                 <div className="flex flex-wrap items-baseline gap-x-2">
-                  <span className="label">{NAMES[k]}</span>
+                  <span className="label">{names[k]}</span>
                   <span className={`label text-[10px] ${isInput ? "text-rule-strong" : "text-signal"}`}>
-                    {isInput ? "given" : "solved"}
+                    {isInput ? t.given : t.solved}
                   </span>
                 </div>
                 <div
@@ -81,11 +83,9 @@ export function OhmsLaw() {
             );
           })}
           <div className="col-span-2 -ml-px -mt-px border-t border-l border-rule p-4 lg:col-span-4">
-            <span className="label">Notes</span>
+            <span className="label">{t.notes}</span>
             <p className="mt-1 text-[13px] text-muted-foreground">
-              DC / resistive case only. For a real part, check the dissipation
-              above against the package rating — a 0603 chip resistor derates to
-              roughly 100 mW at 70 °C.
+              {t.ohmsNotes}
             </p>
           </div>
         </div>

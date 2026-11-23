@@ -1,5 +1,7 @@
 import { LessonPlayer } from "@/components/lesson/LessonPlayer";
 import { LESSON_ONE_STEPS } from "@/components/lesson/lessonSteps";
+import { useLanguage } from "@/i18n/languageContext";
+import { lessonText, LESSONS } from "@/data/lessons";
 
 const OUTCOMES = [
   "Explain the difference between electricity and electronics.",
@@ -18,12 +20,29 @@ const OUTCOMES = [
  * LESSON_ONE_STEPS; the player handles progress, navigation and gating.
  */
 export function LessonOne() {
+  const { lang } = useLanguage();
+  const lesson = LESSONS.find((item) => item.id === "01");
+  const localizedTitle = lesson ? lessonText(lesson, lang).title : "Lesson 1";
+  const localizedOutcomes =
+    lang === "tr"
+      ? [
+          "Elektrik ile elektronik arasındaki farkı açıklayın.",
+          "Üç temel büyüklüğü ve SI birimlerini sayın.",
+          "Direncin ne olduğunu ve direnç kullanılmasının üç nedenini açıklayın.",
+          "mA/A, kΩ/Ω, MΩ/Ω ve mV/V birimlerini hesap makinesiz dönüştürün.",
+          "Ohm Kanunu'nu söyleyin ve V, I, R için çözün.",
+          "V veya R değiştiğinde akımın nasıl değişeceğini tahmin edin.",
+          "LED'in ileri gerilimi ve hedef akımından seri direnci seçin.",
+          "Seri devredeki tek akım yolunu açıklayın.",
+        ]
+      : OUTCOMES;
+
   return (
     <LessonPlayer
       steps={LESSON_ONE_STEPS}
       lessonId="01"
-      lessonTitle="Lesson 1: Introduction to Electronics & Ohm’s Law"
-      outcomes={OUTCOMES}
+      lessonTitle={localizedTitle}
+      outcomes={localizedOutcomes}
       nextLessonId="02"
     />
   );

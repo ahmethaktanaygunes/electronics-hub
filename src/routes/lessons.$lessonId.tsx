@@ -61,7 +61,7 @@ function LessonPage() {
             <div className="mx-auto max-w-[1360px] px-5 py-10">
               <nav className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground">
                 <Link to="/" className="hover:text-foreground">
-                  Home
+                  {t.home}
                 </Link>
                 <span className="value">/</span>
                 <Link to="/" hash="curriculum" className="hover:text-foreground">
@@ -74,7 +74,7 @@ function LessonPage() {
               <div className="mt-4 flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-4">
                 <div>
                   <p className="label">
-                    Module {lesson.id} · {t.levels[lesson.level]}
+                    {t.module} {lesson.id} · {t.levels[lesson.level]}
                   </p>
                   <h1 className="mt-2 max-w-[30ch] text-[30px] leading-[1.12] font-semibold tracking-tight md:text-[36px]">
                     {text.title}
@@ -90,10 +90,10 @@ function LessonPage() {
 
               <div className="mt-4 grid grid-cols-1 border-t border-l border-rule sm:grid-cols-2 lg:grid-cols-4">
                 {[
-                  ["Topics", lesson.syllabus.topics.title],
-                  ["Component", lesson.syllabus.component.title],
-                  ["Law", lesson.syllabus.law.title],
-                  ["Circuit", lesson.syllabus.circuit.title],
+                  [t.topics, lesson.syllabus.topics.title],
+                  [t.componentLabel, lesson.syllabus.component.title],
+                  [t.law, lesson.syllabus.law.title],
+                  [t.circuit, lesson.syllabus.circuit.title],
                 ].map(([k, v]) => (
                   <div key={k} className="-mt-px -ml-px border-t border-l border-rule px-4 py-3">
                     <div className="label">{k}</div>
@@ -112,7 +112,7 @@ function LessonPage() {
             <div className="mx-auto max-w-[1360px] px-5 py-12">
               <div className="panel">
                 <div className="panel-head">
-                  <span>Syllabus · module {lesson.id}</span>
+                  <span>{t.syllabus} · {t.module.toLowerCase()} {lesson.id}</span>
                   <span>{t.comingSoon}</span>
                 </div>
                 <div className="grid grid-cols-1 gap-6 px-4 py-4 md:grid-cols-2">
@@ -131,7 +131,7 @@ function LessonPage() {
                 </div>
               </div>
               <p className="mt-6 text-[14px] text-muted-foreground">
-                This module is not published yet. Lesson 1 is fully available now.
+                {t.unpublishedLesson}
               </p>
             </div>
           </section>
@@ -146,7 +146,7 @@ function LessonPage() {
             </span>
           </span>
           <Link to="/" hash="curriculum" className="label hover:text-foreground">
-            ← Back to lesson index
+            ← {t.backToLessonIndex}
           </Link>
           <span className="label">Track: Basic Electronics · doc rev 1.0</span>
         </div>

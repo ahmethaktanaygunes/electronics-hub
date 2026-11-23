@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
+import { useUi } from "@/i18n/languageContext";
 
 /**
  * Mini workbench: resistive voltage divider.
  * R1 / R2 / Vin drive the live node voltage and the output waveform.
  */
 export function Hero() {
+  const t = useUi();
   const [r1, setR1] = useState(10);
   const [r2, setR2] = useState(10);
   const [vin, setVin] = useState(5);
@@ -38,22 +40,19 @@ export function Hero() {
     <section id="top" className="border-b border-rule">
       <div className="mx-auto grid max-w-[1360px] grid-cols-1 lg:grid-cols-[1fr_minmax(520px,46%)]">
         <div className="border-rule px-5 py-12 lg:border-r lg:py-16">
-          <p className="label">Track · Basic Electronics</p>
+          <p className="label">{t.trackBasicElectronics}</p>
           <h1 className="mt-4 max-w-[24ch] text-[36px] leading-[1.08] font-semibold tracking-tight md:text-[42px]">
-            Basic electronics from the governing equation to the measured node
-            voltage.
+            {t.heroTitle}
           </h1>
           <p className="mt-5 max-w-[62ch] text-[15px] text-muted-foreground">
-            Voltage, current, resistance, power, dividers and RC behaviour —
-            derived by hand, checked against a schematic, then verified on the
-            bench. Values are computed live, not illustrated.
+            {t.heroLead}
           </p>
 
           <div className="mt-8 grid grid-cols-1 border-t border-l border-rule sm:grid-cols-3">
             {[
-              ["Scope", "Basic electronics only"],
-              ["Method", "Derive · build · measure"],
-              ["Units", "SI, engineering notation"],
+              [t.heroScopeLabel, t.heroScope],
+              [t.heroMethodLabel, t.heroMethod],
+              [t.heroUnitsLabel, t.heroUnits],
             ].map(([k, v]) => (
               <div key={k} className="-mt-px -ml-px border-t border-l border-rule px-4 py-3">
                 <div className="label">{k}</div>
@@ -66,13 +65,13 @@ export function Hero() {
         <div className="graticule bg-surface px-5 py-6">
           <div className="panel">
             <div className="panel-head">
-              <span>Mini workbench · resistive divider</span>
-              <span className="text-trace">live</span>
+              <span>{t.miniWorkbench}</span>
+              <span className="text-trace">{t.live}</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-[1fr_190px]">
               <div className="border-rule p-3 md:border-r">
-                <svg viewBox="0 0 300 200" className="w-full" role="img" aria-label="Voltage divider schematic">
+                <svg viewBox="0 0 300 200" className="w-full" role="img" aria-label={t.voltageDividerSchematic}>
                   <g fill="none" stroke="var(--foreground)" strokeWidth="1.5" strokeLinecap="square">
                     <path d="M60 24 V52" />
                     <rect x="46" y="52" width="28" height="46" />
