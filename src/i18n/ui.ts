@@ -9,6 +9,7 @@ export interface UiStrings {
   /** Home page */
   trackBasicElectronics: string;
   heroTitle: string;
+  heroTitleAccent: string;
   heroLead: string;
   heroScopeLabel: string;
   heroScope: string;
@@ -143,6 +144,7 @@ export const UI: Record<Lang, UiStrings> = {
     language: "Language",
     trackBasicElectronics: "Track · Basic Electronics",
     heroTitle: "Basic electronics from the governing equation to the measured node voltage.",
+    heroTitleAccent: "governing equation",
     heroLead:
       "Voltage, current, resistance, power, dividers and RC behaviour — derived by hand, checked against a schematic, then verified on the bench. Values are computed live, not illustrated.",
     heroScopeLabel: "Scope",
@@ -157,13 +159,26 @@ export const UI: Record<Lang, UiStrings> = {
     percentOfInput: "of input",
     methodSection: "Section 02 · Method",
     methodItems: [
-      { title: "Derive before you simulate", description: "Each concept starts from the governing equation and a hand-calculated component value. Simulation only checks the derivation." },
-      { title: "Every value is measurable", description: "Each circuit is drawn so it can be built on a breadboard and probed, then compared against the predicted node voltages." },
-      { title: "Tolerances are part of the answer", description: "E-series rounding, resistor tolerance and power derating are treated as first-class design inputs, not footnotes." },
+      {
+        title: "Derive before you simulate",
+        description:
+          "Each concept starts from the governing equation and a hand-calculated component value. Simulation only checks the derivation.",
+      },
+      {
+        title: "Every value is measurable",
+        description:
+          "Each circuit is drawn so it can be built on a breadboard and probed, then compared against the predicted node voltages.",
+      },
+      {
+        title: "Tolerances are part of the answer",
+        description:
+          "E-series rounding, resistor tolerance and power derating are treated as first-class design inputs, not footnotes.",
+      },
     ],
     toolsSection: "Section 04 · Interactive workbench",
     toolsTitle: "Basic electronics calculators",
-    toolsLead: "Live tools for the fundamentals. Enter measured or specified values; results update as you type.",
+    toolsLead:
+      "Live tools for the fundamentals. Enter measured or specified values; results update as you type.",
     footerTrack: "Track: Basic Electronics · doc rev 1.0",
     home: "Home",
     module: "Module",
@@ -186,7 +201,8 @@ export const UI: Record<Lang, UiStrings> = {
     given: "given",
     solved: "solved",
     notes: "Notes",
-    ohmsNotes: "DC / resistive case only. For a real part, check the dissipation above against the package rating — a 0603 chip resistor derates to roughly 100 mW at 70 °C.",
+    ohmsNotes:
+      "DC / resistive case only. For a real part, check the dissipation above against the package rating — a 0603 chip resistor derates to roughly 100 mW at 70 °C.",
     voltage: "Voltage",
     current: "Current",
     resistance: "Resistance",
@@ -277,6 +293,7 @@ export const UI: Record<Lang, UiStrings> = {
     language: "Dil",
     trackBasicElectronics: "İz · Temel Elektronik",
     heroTitle: "Temel elektronik; temel denklemden ölçülen düğüm gerilimine.",
+    heroTitleAccent: "temel denklemden",
     heroLead:
       "Gerilim, akım, direnç, güç, bölücüler ve RC davranışı — elle türetilir, şemada kontrol edilir, ardından tezgâhta doğrulanır. Değerler canlı hesaplanır, yalnızca gösterilmez.",
     heroScopeLabel: "Kapsam",
@@ -291,13 +308,26 @@ export const UI: Record<Lang, UiStrings> = {
     percentOfInput: "girişin yüzdesi",
     methodSection: "Bölüm 02 · Yöntem",
     methodItems: [
-      { title: "Simüle etmeden önce türetin", description: "Her kavram temel denklemden ve elle hesaplanan bir bileşen değerinden başlar. Simülasyon yalnızca türetimi kontrol eder." },
-      { title: "Her değer ölçülebilir", description: "Her devre breadboard üzerinde kurulup probla ölçülecek şekilde çizilir ve tahmin edilen düğüm gerilimleriyle karşılaştırılır." },
-      { title: "Toleranslar cevabın parçasıdır", description: "E-serisi yuvarlama, direnç toleransı ve güç düşürme ilk düzey tasarım girdisi olarak ele alınır." },
+      {
+        title: "Simüle etmeden önce türetin",
+        description:
+          "Her kavram temel denklemden ve elle hesaplanan bir bileşen değerinden başlar. Simülasyon yalnızca türetimi kontrol eder.",
+      },
+      {
+        title: "Her değer ölçülebilir",
+        description:
+          "Her devre breadboard üzerinde kurulup probla ölçülecek şekilde çizilir ve tahmin edilen düğüm gerilimleriyle karşılaştırılır.",
+      },
+      {
+        title: "Toleranslar cevabın parçasıdır",
+        description:
+          "E-serisi yuvarlama, direnç toleransı ve güç düşürme ilk düzey tasarım girdisi olarak ele alınır.",
+      },
     ],
     toolsSection: "Bölüm 04 · Etkileşimli tezgâh",
     toolsTitle: "Temel elektronik hesaplayıcıları",
-    toolsLead: "Temel bilgiler için canlı araçlar. Ölçülen veya belirtilen değerleri girin; sonuçlar yazdıkça güncellenir.",
+    toolsLead:
+      "Temel bilgiler için canlı araçlar. Ölçülen veya belirtilen değerleri girin; sonuçlar yazdıkça güncellenir.",
     footerTrack: "İz: Temel Elektronik · belge rev 1.0",
     home: "Ana sayfa",
     module: "Modül",
@@ -320,7 +350,8 @@ export const UI: Record<Lang, UiStrings> = {
     given: "verilen",
     solved: "çözülen",
     notes: "Notlar",
-    ohmsNotes: "Yalnızca doğru akım / direnç durumu. Gerçek bir bileşen için yukarıdaki güç tüketimini paket değerleriyle karşılaştırın — 0603 çip direnç 70 °C'de yaklaşık 100 mW'a kadar düşer.",
+    ohmsNotes:
+      "Yalnızca doğru akım / direnç durumu. Gerçek bir bileşen için yukarıdaki güç tüketimini paket değerleriyle karşılaştırın — 0603 çip direnç 70 °C'de yaklaşık 100 mW'a kadar düşer.",
     voltage: "Gerilim",
     current: "Akım",
     resistance: "Direnç",

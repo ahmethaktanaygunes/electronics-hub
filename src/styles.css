@@ -234,9 +234,48 @@ header.sticky {
 }
 
 #top {
+  position: relative;
+  isolation: isolate;
   background-image:
     radial-gradient(ellipse at 18% 0%, rgb(34 211 197 / 7%), transparent 36rem),
     linear-gradient(135deg, rgb(13 21 34 / 70%), transparent 62%);
+}
+
+#top::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 auto;
+  width: min(58%, 760px);
+  content: "";
+  pointer-events: none;
+  opacity: 0.32;
+  background:
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 12% 25% / 5px 5px
+      no-repeat,
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 67% 25% / 5px 5px
+      no-repeat,
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 12% 48% / 5px 5px
+      no-repeat,
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 44% 48% / 5px 5px
+      no-repeat,
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 44% 74% / 5px 5px
+      no-repeat,
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 70% 74% / 5px 5px
+      no-repeat,
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 80% 16% / 5px 5px
+      no-repeat,
+    radial-gradient(circle, rgb(34 211 197 / 85%) 0 1.5px, transparent 2px) 80% 35% / 5px 5px
+      no-repeat,
+    linear-gradient(90deg, rgb(34 211 197 / 55%), rgb(34 211 197 / 18%)) 12% 25% / 55% 1px no-repeat,
+    linear-gradient(180deg, rgb(34 211 197 / 50%), rgb(34 211 197 / 14%)) 12% 25% / 1px 23%
+      no-repeat,
+    linear-gradient(90deg, rgb(34 211 197 / 50%), rgb(34 211 197 / 14%)) 12% 48% / 32% 1px no-repeat,
+    linear-gradient(180deg, rgb(34 211 197 / 50%), rgb(34 211 197 / 14%)) 44% 48% / 1px 26%
+      no-repeat,
+    linear-gradient(90deg, rgb(34 211 197 / 50%), rgb(34 211 197 / 14%)) 44% 74% / 26% 1px no-repeat,
+    linear-gradient(180deg, rgb(34 211 197 / 40%), rgb(34 211 197 / 12%)) 80% 16% / 1px 19%
+      no-repeat,
+    linear-gradient(90deg, rgb(34 211 197 / 40%), rgb(34 211 197 / 12%)) 64% 16% / 16% 1px no-repeat;
 }
 
 #top h1 {
@@ -250,6 +289,40 @@ header.sticky {
 
 #curriculum li:hover {
   border-radius: 6px;
+}
+
+.panel:has(
+  button:not([disabled]),
+  a,
+  input:not([disabled]),
+  textarea:not([disabled]),
+  select:not([disabled])
+) {
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.panel:has(
+    button:not([disabled]),
+    a,
+    input:not([disabled]),
+    textarea:not([disabled]),
+    select:not([disabled])
+  ):hover {
+  border-color: color-mix(in oklab, var(--signal) 32%, var(--rule));
+  background-color: color-mix(in oklab, var(--card) 96%, var(--signal));
+  box-shadow:
+    0 14px 30px -26px rgb(34 211 197 / 28%),
+    0 12px 28px -24px rgb(0 0 0 / 75%);
+}
+
+@media (max-width: 767px) {
+  #top::before {
+    width: 76%;
+    opacity: 0.2;
+  }
 }
 
 @utility panel-head {
@@ -418,7 +491,15 @@ header.sticky {
   .animate-step-next,
   .animate-step-prev,
   .animate-step-shake,
-  .animate-step-pop {
+  .animate-step-pop,
+  .panel:has(
+    button:not([disabled]),
+    a,
+    input:not([disabled]),
+    textarea:not([disabled]),
+    select:not([disabled])
+  ) {
     animation: none;
+    transition-duration: 0.01ms;
   }
 }

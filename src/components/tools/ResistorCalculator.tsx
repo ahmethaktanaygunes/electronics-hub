@@ -67,12 +67,19 @@ export function ResistorCalculator() {
           </button>
         ))}
         <span className="label ml-auto hidden sm:inline">
-          {mode === 4 ? `2 ${t.digits} + ${t.multiplier} + ${t.tolerance}` : `3 ${t.digits} + ${t.multiplier} + ${t.tolerance}`}
+          {mode === 4
+            ? `2 ${t.digits} + ${t.multiplier} + ${t.tolerance}`
+            : `3 ${t.digits} + ${t.multiplier} + ${t.tolerance}`}
         </span>
       </div>
 
       <div className="border-b border-rule bg-background p-5">
-        <svg viewBox="0 0 320 90" className="mx-auto h-[90px] w-full max-w-[420px]" role="img" aria-label="Resistor body">
+        <svg
+          viewBox="0 0 320 90"
+          className="mx-auto h-[90px] w-full max-w-[420px]"
+          role="img"
+          aria-label="Resistor body"
+        >
           <line x1="0" y1="45" x2="320" y2="45" stroke="var(--foreground)" strokeWidth="1.5" />
           <rect
             x="60"
@@ -109,10 +116,28 @@ export function ResistorCalculator() {
           mode === 4 ? "md:grid-cols-4" : "md:grid-cols-5"
         }`}
       >
-        <BandPicker title="Band 1 · digit" options={DIGITS} value={b1} onChange={setB1} render={(b) => String(b.digit)} />
-        <BandPicker title="Band 2 · digit" options={DIGITS} value={b2} onChange={setB2} render={(b) => String(b.digit)} />
+        <BandPicker
+          title="Band 1 · digit"
+          options={DIGITS}
+          value={b1}
+          onChange={setB1}
+          render={(b) => String(b.digit)}
+        />
+        <BandPicker
+          title="Band 2 · digit"
+          options={DIGITS}
+          value={b2}
+          onChange={setB2}
+          render={(b) => String(b.digit)}
+        />
         {mode === 5 && (
-          <BandPicker title="Band 3 · digit" options={DIGITS} value={b3} onChange={setB3} render={(b) => String(b.digit)} />
+          <BandPicker
+            title="Band 3 · digit"
+            options={DIGITS}
+            value={b3}
+            onChange={setB3}
+            render={(b) => String(b.digit)}
+          />
         )}
         <BandPicker
           title="Multiplier"
@@ -120,16 +145,16 @@ export function ResistorCalculator() {
           value={mult}
           onChange={setMult}
           render={(b) =>
-            `×${
-              b.mult >= 1e6
-                ? `${b.mult / 1e6}M`
-                : b.mult >= 1e3
-                  ? `${b.mult / 1e3}k`
-                  : b.mult
-            }`
+            `×${b.mult >= 1e6 ? `${b.mult / 1e6}M` : b.mult >= 1e3 ? `${b.mult / 1e3}k` : b.mult}`
           }
         />
-        <BandPicker title="Tolerance" options={TOLS} value={tol} onChange={setTol} render={(b) => `±${b.tol}%`} />
+        <BandPicker
+          title="Tolerance"
+          options={TOLS}
+          value={tol}
+          onChange={setTol}
+          render={(b) => `±${b.tol}%`}
+        />
       </div>
     </div>
   );
@@ -160,13 +185,12 @@ function BandPicker({
               <button
                 onClick={() => onChange(idx)}
                 className={`flex w-full items-center gap-2 border-b border-rule px-1 py-1 text-left ${
-                  active ? "bg-foreground text-background" : "hover:bg-surface-2"
+                  active
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "hover:bg-surface-2"
                 }`}
               >
-                <span
-                  className="h-3 w-3 border border-rule-strong"
-                  style={{ background: b.hex }}
-                />
+                <span className="h-3 w-3 border border-rule-strong" style={{ background: b.hex }} />
                 <span className="value text-[11px] uppercase">{b.name}</span>
                 <span className="value ml-auto text-[11px] opacity-70">{render(b)}</span>
               </button>

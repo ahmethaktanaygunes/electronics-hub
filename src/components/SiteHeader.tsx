@@ -24,13 +24,13 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <div className="hidden items-center border-r border-rule px-4 md:flex">
+        <div className="hidden shrink-0 items-center border-r border-rule px-4 lg:flex">
           <span className="label text-[10px] border border-signal px-2 py-0.5 text-signal">
             {t.workbench}
           </span>
         </div>
 
-        <div className="ml-auto flex items-stretch">
+        <div className="ml-auto flex shrink-0 items-stretch">
           <Link
             to="/"
             hash="curriculum"

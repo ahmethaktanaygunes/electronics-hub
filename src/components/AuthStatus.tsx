@@ -27,7 +27,10 @@ export function AuthStatus() {
 
   if (isPending) {
     return (
-      <span className="label flex items-center px-3 text-muted-foreground" aria-live="polite">
+      <span
+        className="label flex shrink-0 items-center px-3 text-muted-foreground"
+        aria-live="polite"
+      >
         {t.loading}
       </span>
     );
@@ -35,7 +38,7 @@ export function AuthStatus() {
 
   if (!session) {
     return (
-      <div className="flex items-stretch">
+      <div className="flex shrink-0 items-stretch">
         <Link
           to="/login"
           className="flex items-center whitespace-nowrap border-l border-rule px-3 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
@@ -59,7 +62,7 @@ export function AuthStatus() {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex items-center gap-2 border-l border-rule px-3 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
+          className="flex shrink-0 items-center gap-2 border-l border-rule px-3 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
           aria-label={t.myAccount}
         >
           <span className="value flex h-6 w-6 shrink-0 items-center justify-center border border-glow/50 bg-glow/15 text-[10px] text-glow">
