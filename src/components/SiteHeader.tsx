@@ -12,7 +12,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-12 max-w-[1360px] items-stretch px-0">
         <Link
           to="/"
-          className="group flex items-center gap-2.5 border-r border-rule px-4 transition-colors hover:bg-surface-2 sm:px-5"
+          className="group flex items-center gap-2.5 whitespace-nowrap border-r border-rule px-4 transition-colors hover:bg-surface-2 sm:px-5"
         >
           <HElectronicsLogo
             size={26}
@@ -34,14 +34,14 @@ export function SiteHeader() {
           <Link
             to="/"
             hash="curriculum"
-            className="flex items-center border-l border-rule px-4 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
+            className="flex items-center whitespace-nowrap border-l border-rule px-4 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
           >
             {t.navLessons}
           </Link>
           <Link
             to="/"
             hash="tools"
-            className="hidden items-center border-l border-rule px-4 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground sm:flex"
+            className="hidden items-center whitespace-nowrap border-l border-rule px-4 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground sm:flex"
           >
             {t.navCalculators}
           </Link>

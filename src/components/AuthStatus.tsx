@@ -38,13 +38,13 @@ export function AuthStatus() {
       <div className="flex items-stretch">
         <Link
           to="/login"
-          className="flex items-center border-l border-rule px-3 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
+          className="flex items-center whitespace-nowrap border-l border-rule px-3 text-[13px] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
         >
           {t.signIn}
         </Link>
         <Link
           to="/register"
-          className="hidden items-center border-l border-rule px-3 text-[13px] text-glow transition-colors hover:bg-surface-2 sm:flex"
+          className="hidden items-center whitespace-nowrap border-l border-rule px-3 text-[13px] text-glow transition-colors hover:bg-surface-2 sm:flex"
         >
           {t.signUp}
         </Link>
