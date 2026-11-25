@@ -7,17 +7,21 @@ export interface UiStrings {
   language: string;
 
   /** Home page */
-  trackBasicElectronics: string;
-  heroTitle: string;
-  heroTitleAccent: string;
+  heroEyebrow: string;
+  heroTitleLineOne: string;
+  heroTitleAccentOne: string;
+  heroTitleLineTwo: string;
+  heroTitleAccentTwo: string;
   heroLead: string;
-  heroScopeLabel: string;
-  heroScope: string;
-  heroMethodLabel: string;
-  heroMethod: string;
-  heroUnitsLabel: string;
-  heroUnits: string;
+  heroCtaStart: string;
+  heroCtaTools: string;
+  heroHighlightLessons: string;
+  heroHighlightCalculators: string;
+  heroHighlightPractical: string;
   miniWorkbench: string;
+  heroSignalPath: string;
+  heroSourceLabel: string;
+  heroOutputNodeLabel: string;
   live: string;
   voltageDividerSchematic: string;
   percentOfInput: string;
@@ -142,18 +146,22 @@ export interface UiStrings {
 export const UI: Record<Lang, UiStrings> = {
   en: {
     language: "Language",
-    trackBasicElectronics: "Track · Basic Electronics",
-    heroTitle: "Basic electronics from the governing equation to the measured node voltage.",
-    heroTitleAccent: "governing equation",
+    heroEyebrow: "Electronics learning platform",
+    heroTitleLineOne: "Understand Electronics.",
+    heroTitleAccentOne: "Electronics.",
+    heroTitleLineTwo: "Build What Matters.",
+    heroTitleAccentTwo: "Build",
     heroLead:
-      "Voltage, current, resistance, power, dividers and RC behaviour — derived by hand, checked against a schematic, then verified on the bench. Values are computed live, not illustrated.",
-    heroScopeLabel: "Scope",
-    heroScope: "Basic electronics only",
-    heroMethodLabel: "Method",
-    heroMethod: "Derive · build · measure",
-    heroUnitsLabel: "Units",
-    heroUnits: "SI, engineering notation",
-    miniWorkbench: "Mini workbench · resistive divider",
+      "From fundamental electrical principles to practical circuit design, develop your electronics knowledge through interactive lessons and engineering tools.",
+    heroCtaStart: "Start Learning",
+    heroCtaTools: "Explore Tools",
+    heroHighlightLessons: "Interactive Lessons",
+    heroHighlightCalculators: "Engineering Calculators",
+    heroHighlightPractical: "Practical Learning",
+    miniWorkbench: "Voltage divider workbench",
+    heroSignalPath: "Signal path · voltage divider",
+    heroSourceLabel: "Supply",
+    heroOutputNodeLabel: "Output node",
     live: "live",
     voltageDividerSchematic: "Voltage divider schematic",
     percentOfInput: "of input",
@@ -291,18 +299,22 @@ export const UI: Record<Lang, UiStrings> = {
 
   tr: {
     language: "Dil",
-    trackBasicElectronics: "İz · Temel Elektronik",
-    heroTitle: "Temel elektronik; temel denklemden ölçülen düğüm gerilimine.",
-    heroTitleAccent: "temel denklemden",
+    heroEyebrow: "Elektronik öğrenme platformu",
+    heroTitleLineOne: "Elektroniği Anla.",
+    heroTitleAccentOne: "Elektroniği",
+    heroTitleLineTwo: "Üret. Değer Kat.",
+    heroTitleAccentTwo: "Üret.",
     heroLead:
-      "Gerilim, akım, direnç, güç, bölücüler ve RC davranışı — elle türetilir, şemada kontrol edilir, ardından tezgâhta doğrulanır. Değerler canlı hesaplanır, yalnızca gösterilmez.",
-    heroScopeLabel: "Kapsam",
-    heroScope: "Yalnızca temel elektronik",
-    heroMethodLabel: "Yöntem",
-    heroMethod: "Türet · kur · ölç",
-    heroUnitsLabel: "Birimler",
-    heroUnits: "SI, mühendislik gösterimi",
-    miniWorkbench: "Mini tezgâh · dirençli gerilim bölücü",
+      "Temel elektrik ilkelerinden uygulamalı devre tasarımına kadar, elektronik bilginizi etkileşimli dersler ve mühendislik araçlarıyla geliştirin.",
+    heroCtaStart: "Öğrenmeye Başla",
+    heroCtaTools: "Araçları İncele",
+    heroHighlightLessons: "Etkileşimli Dersler",
+    heroHighlightCalculators: "Mühendislik Hesaplayıcıları",
+    heroHighlightPractical: "Uygulamalı Öğrenme",
+    miniWorkbench: "Gerilim bölücü tezgâhı",
+    heroSignalPath: "Sinyal yolu · gerilim bölücü",
+    heroSourceLabel: "Besleme",
+    heroOutputNodeLabel: "Çıkış düğümü",
     live: "canlı",
     voltageDividerSchematic: "Gerilim bölücü şeması",
     percentOfInput: "girişin yüzdesi",
