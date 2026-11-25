@@ -12,11 +12,12 @@ export interface LessonSyllabus {
   circuit: LessonTopic;
 }
 
-/** Per-language overrides for the lesson index and page header. */
+/** Per-language overrides for the lesson index, page header and syllabus. */
 export interface LessonTranslation {
   title: string;
   subtitle: string;
   summary: string;
+  syllabus?: LessonSyllabus;
 }
 
 export interface Lesson {
@@ -34,7 +35,7 @@ export interface Lesson {
   translations?: Partial<Record<Lang, LessonTranslation>>;
 }
 
-/** Title / subtitle / summary for the active language, with English fallback. */
+/** Active-language lesson copy with English fallback. */
 export function lessonText(lesson: Lesson, lang: Lang): LessonTranslation {
   return (
     lesson.translations?.[lang] ?? {
@@ -63,6 +64,43 @@ export const LESSONS: Lesson[] = [
         subtitle: "Yük, Potansiyel, Direnç ve Seri Devre Korumanın Temelleri",
         summary:
           "Elektrik ile elektronik arasındaki farkı anlayın, temel büyüklükleri (V, I, R) öğrenin, direnç fiziğini ve birim dönüşümlerini inceleyin, Ohm Kanunu'nu türetin ve Koruyucu Pil + Direnç + LED devresi kurun.",
+        syllabus: {
+          topics: {
+            title: "Bugünün Konuları",
+            items: [
+              "Elektrik ve elektronik arasındaki fark",
+              "Elektronik devre nedir?",
+              "Gerilim (V), Akım (I), Direnç (R)",
+            ],
+          },
+          component: {
+            title: "Bugünün Bileşeni: Direnç",
+            items: [
+              "Direnç nedir?",
+              "Direnç neden kullanılır?",
+              "Devrede direnç sembolü",
+              "Direnç değerleri ve basit örnekler",
+              "Birim dönüşümleri: mA → A, kΩ → Ω vb.",
+            ],
+          },
+          law: {
+            title: "Bugünün Kanunu: Ohm Kanunu",
+            items: [
+              "V = I × R",
+              "Gerilim, akım ve direnç arasındaki ilişki",
+              "Formülü üç farklı bilinmeyen (V, I, R) için kullanma",
+            ],
+          },
+          circuit: {
+            title: "Bugünün Devresi: Pil + Direnç + LED",
+            items: [
+              "Direnç LED'i neden korur?",
+              "Yanlış direnç seçiminin sonuçları",
+              "Seri bağlantının temel ilkesi",
+              "Devredeki akımın yolu",
+            ],
+          },
+        },
       },
     },
     syllabus: {
@@ -120,6 +158,42 @@ export const LESSONS: Lesson[] = [
         subtitle: "Akım Yolları, Eleman Arıza Davranışı ve Günlük Devreler",
         summary:
           "Seri ve paralel bağlantıları tanıyın, akım yollarının nasıl farklılaştığını açıklayın ve basit lamba devreleri kurun.",
+        syllabus: {
+          topics: {
+            title: "Bugünün Konuları",
+            items: [
+              "Seri ve paralel bağlantı",
+              "Akım yolları",
+              "Bileşen arızalarının davranışı",
+              "Devre sembolleri ve şemalar",
+              "Günlük hayattan örnekler",
+            ],
+          },
+          component: {
+            title: "Bugünün Bileşenleri: Lambalar, Anahtar ve Pil",
+            items: [
+              "Lamba sembolü (içinde çarpı olan daire)",
+              "Şemada anahtar ve pil sembolleri",
+              "Gerçek bir lambanın neden dirençli yük gibi davrandığı",
+            ],
+          },
+          law: {
+            title: "Bugünün Kuralları: Akım ve Gerilim Paylaşımı",
+            items: [
+              "Seri: tek akım yolu, her yerde aynı akım, bölünen gerilim",
+              "Paralel: birden fazla yol, her kolda aynı gerilim, toplanan kol akımları",
+              "Arıza davranışı, akım yolu sayısına bağlıdır",
+            ],
+          },
+          circuit: {
+            title: "Bugünün Devreleri: Devre A (Seri) ve Devre B (Paralel)",
+            items: [
+              "Tek çevrimde pil + anahtar + Lamba 1 + Lamba 2 (Devre A)",
+              "Ayrı lamba kollarına sahip pil + anahtar (Devre B)",
+              "Parlaklığı ve lamba çıkarıldığında olanları gözlemleme",
+            ],
+          },
+        },
       },
     },
     syllabus: {
@@ -170,6 +244,32 @@ export const LESSONS: Lesson[] = [
     minutes: 22,
     level: "Intermediate",
     published: false,
+    translations: {
+      tr: {
+        title: "DERS 3: Gerilim Bölücüler ve Sensör Arayüzleri",
+        subtitle: "Analog Ölçüm İçin Gerilim Ölçekleme",
+        summary:
+          "Dirençli gerilim bölücü denklemi, giriş empedansı, yükleme hataları ve LDR ile termistörlerin ADC'lere bağlanması.",
+        syllabus: {
+          topics: {
+            title: "Bugünün Konuları",
+            items: ["Gerilim bölme oranı", "Yükleme etkileri", "Kaynak ve yük empedansı"],
+          },
+          component: {
+            title: "Bugünün Bileşenleri: Potansiyometreler ve Sensör Elemanları",
+            items: ["Değişken bölücü olarak potansiyometreler", "LDR'ler ve termistörler"],
+          },
+          law: {
+            title: "Bugünün Kanunu: Bölücü Formülü",
+            items: ["Vout = Vin · (R2 / (R1 + R2))", "Bölücü dirençlerini seçme"],
+          },
+          circuit: {
+            title: "Bugünün Devresi: Gün Işığı Algılayan Lamba Anahtarı",
+            items: ["LDR bölücü düğümünü izleme", "Bölücü çıkışını karşılaştırıcıya bağlama"],
+          },
+        },
+      },
+    },
     syllabus: {
       topics: {
         title: "Today's Topics",

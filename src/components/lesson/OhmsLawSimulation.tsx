@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLanguage } from "@/i18n/languageContext";
 
 /* ------------------------------------------------------------------
  * Loop geometry: a rectangular current path in a 400 x 300 viewBox.
@@ -39,6 +40,8 @@ function pointAt(raw: number): Pt {
 const MAX_FLOW_REFERENCE = 0.1; // 100 mA => visually "full flow"
 
 export function OhmsLawSimulation() {
+  const { lang } = useLanguage();
+  const isTurkish = lang === "tr";
   const [voltage, setVoltage] = useState(9);
   const [resistance, setResistance] = useState(220);
   const [phase, setPhase] = useState(0);
@@ -79,20 +82,31 @@ export function OhmsLawSimulation() {
   return (
     <div className="panel">
       <div className="panel-head">
-        <span>Sim 01 · Ohm&apos;s law circuit</span>
+        <span>{isTurkish ? "Sim 01 · Ohm Kanunu devresi" : "Sim 01 · Ohm's law circuit"}</span>
         <span className={normalized > 0.02 ? "text-trace" : "text-muted-foreground"}>
-          {normalized > 0.02 ? "electron flow active" : "no measurable flow"}
+          {normalized > 0.02
+            ? isTurkish
+              ? "elektron akışı etkin"
+              : "electron flow active"
+            : isTurkish
+              ? "ölçülebilir akış yok"
+              : "no measurable flow"}
         </span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px]">
         <div className="graticule border-rule bg-background p-4 lg:border-r">
-          <CircuitCanvas dots={dots} voltage={voltage} resistance={resistance} />
+          <CircuitCanvas
+            dots={dots}
+            voltage={voltage}
+            resistance={resistance}
+            isTurkish={isTurkish}
+          />
         </div>
 
         <div className="divide-y divide-rule">
           <Slider
-            label="Source voltage (Vₛ)"
+            label={isTurkish ? "Kaynak gerilimi (Vₛ)" : "Source voltage (Vₛ)"}
             unit="V"
             value={voltage}
             min={1}
@@ -101,7 +115,7 @@ export function OhmsLawSimulation() {
             onChange={setVoltage}
           />
           <Slider
-            label="Resistance (R)"
+            label={isTurkish ? "Direnç (R)" : "Resistance (R)"}
             unit="Ω"
             value={resistance}
             min={10}
@@ -111,7 +125,9 @@ export function OhmsLawSimulation() {
           />
 
           <div className="px-3 py-3">
-            <span className="label">Live equation · I = V / R</span>
+            <span className="label">
+              {isTurkish ? "Anlık denklem · I = V / R" : "Live equation · I = V / R"}
+            </span>
             <div className="value mt-1 text-[13px] text-muted-foreground">
               I = {voltage.toFixed(1)} V / {resistance} Ω
             </div>
@@ -128,10 +144,12 @@ export function OhmsLawSimulation() {
                 style={{ width: `${(normalized * 100).toFixed(1)}%` }}
               />
             </div>
-            <div className="label mt-1">Relative electron flow</div>
+            <div className="label mt-1">
+              {isTurkish ? "Göreli elektron akışı" : "Relative electron flow"}
+            </div>
           </div>
           <div className="px-3 py-3">
-            <span className="label">Presets</span>
+            <span className="label">{isTurkish ? "Hazır ayarlar" : "Presets"}</span>
             <div className="mt-2 flex flex-wrap gap-1">
               {[
                 { v: 9, r: 470, t: "9V / 470Ω" },
@@ -163,17 +181,23 @@ function CircuitCanvas({
   dots,
   voltage,
   resistance,
+  isTurkish,
 }: {
   dots: Pt[];
   voltage: number;
   resistance: number;
+  isTurkish: boolean;
 }) {
   return (
     <svg
       viewBox="0 0 400 300"
       className="h-auto w-full"
       role="img"
-      aria-label="DC circuit with battery, wire loop and resistor"
+      aria-label={
+        isTurkish
+          ? "Pil, tel çevrimi ve direnç içeren doğru akım devresi"
+          : "DC circuit with battery, wire loop and resistor"
+      }
     >
       {/* Wire channel */}
       <g fill="none" stroke="var(--rule-strong)" strokeWidth="10" strokeLinejoin="round">
@@ -230,7 +254,7 @@ function CircuitCanvas({
         fontSize="11"
         fontFamily="var(--font-mono)"
       >
-        BATTERY V = {voltage.toFixed(1)} V
+        {isTurkish ? "PİL" : "BATTERY"} V = {voltage.toFixed(1)} V
       </text>
       <text x="252" y="252" fill="var(--warn)" fontSize="15" fontFamily="var(--font-mono)">
         −
@@ -245,7 +269,7 @@ function CircuitCanvas({
         <path d="M250 130 l-7 -4 v8 z" stroke="none" />
       </g>
       <text x="120" y="126" fill="var(--trace)" fontSize="10" fontFamily="var(--font-mono)">
-        ELECTRON FLOW
+        {isTurkish ? "ELEKTRON AKIŞI" : "ELECTRON FLOW"}
       </text>
     </svg>
   );

@@ -1,9 +1,12 @@
 import { CIRCUIT_QUESTIONS, UNIT_CONVERSIONS } from "@/data/lesson1Quiz";
 import type { QuizItem } from "@/data/quizTypes";
+import { cloneElement, isValidElement, type ReactNode } from "react";
 import { OhmsLawSimulation } from "@/components/lesson/OhmsLawSimulation";
 import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { Bullets, Formula, InfoCard, StatTile, Worked } from "@/components/lesson/lessonUi";
 import type { LessonStep } from "@/components/lesson/lessonTypes";
+import type { Lang } from "@/i18n/lang";
+import { lessonOneText } from "@/i18n/lesson1";
 
 export type { LessonStep };
 
@@ -608,3 +611,47 @@ export const LESSON_ONE_STEPS: LessonStep[] = [
     "B8",
   ]),
 ];
+
+function localizeNode(value: ReactNode): ReactNode {
+  if (typeof value === "string") return lessonOneText(value);
+  if (Array.isArray(value)) return value.map(localizeNode);
+  if (isValidElement<Record<string, unknown>>(value)) {
+    const props = Object.fromEntries(
+      Object.entries(value.props).map(([key, prop]) => [key, localizeProp(prop)]),
+    );
+    return cloneElement(value, props);
+  }
+  return value;
+}
+
+function localizeProp(value: unknown): unknown {
+  if (typeof value === "string") return lessonOneText(value);
+  if (Array.isArray(value)) return value.map(localizeProp);
+  if (isValidElement<Record<string, unknown>>(value)) return localizeNode(value);
+  return value;
+}
+
+function localizeStep(step: LessonStep): LessonStep {
+  const { subtitle, content, quiz, ...stepCopy } = step;
+  return {
+    ...stepCopy,
+    section: lessonOneText(step.section),
+    title: lessonOneText(step.title),
+    ...(subtitle !== undefined ? { subtitle: lessonOneText(subtitle) } : {}),
+    ...(content !== undefined ? { content: localizeNode(content) } : {}),
+    ...(quiz
+      ? {
+          quiz: {
+            ...quiz,
+            prompt: lessonOneText(quiz.prompt),
+            solution: lessonOneText(quiz.solution),
+            ...(quiz.kind === "choice" ? { options: quiz.options.map(lessonOneText) } : {}),
+          },
+        }
+      : {}),
+  };
+}
+
+export function buildLessonOneSteps(lang: Lang): LessonStep[] {
+  return lang === "tr" ? LESSON_ONE_STEPS.map(localizeStep) : LESSON_ONE_STEPS;
+}

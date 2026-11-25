@@ -1,5 +1,6 @@
+import { useMemo } from "react";
 import { LessonPlayer } from "@/components/lesson/LessonPlayer";
-import { LESSON_ONE_STEPS } from "@/components/lesson/lessonSteps";
+import { buildLessonOneSteps } from "@/components/lesson/lessonSteps";
 import { useLanguage } from "@/i18n/languageContext";
 import { lessonText, LESSONS } from "@/data/lessons";
 
@@ -21,6 +22,7 @@ const OUTCOMES = [
  */
 export function LessonOne() {
   const { lang } = useLanguage();
+  const steps = useMemo(() => buildLessonOneSteps(lang), [lang]);
   const lesson = LESSONS.find((item) => item.id === "01");
   const localizedTitle = lesson ? lessonText(lesson, lang).title : "Lesson 1";
   const localizedOutcomes =
@@ -39,7 +41,7 @@ export function LessonOne() {
 
   return (
     <LessonPlayer
-      steps={LESSON_ONE_STEPS}
+      steps={steps}
       lessonId="01"
       lessonTitle={localizedTitle}
       outcomes={localizedOutcomes}

@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { HElectronicsLogo } from "@/components/HElectronicsLogo";
 import { QuizCard, type QuizResult } from "@/components/lesson/QuizCard";
 import type { LessonStep } from "@/components/lesson/lessonTypes";
-import { useUi } from "@/i18n/languageContext";
+import { useLanguage, useUi } from "@/i18n/languageContext";
 
 export interface LessonPlayerProps {
   steps: LessonStep[];
@@ -28,6 +28,7 @@ export function LessonPlayer({
   nextLessonId,
 }: LessonPlayerProps) {
   const t = useUi();
+  const { lang } = useLanguage();
   const total = steps.length;
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
@@ -134,7 +135,7 @@ export function LessonPlayer({
             aria-valuenow={progress}
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-label="Lesson progress"
+            aria-label={lang === "tr" ? "Ders ilerlemesi" : "Lesson progress"}
           >
             <div
               className="h-full rounded-[3px] bg-gradient-to-r from-[#06b6d4] to-[#22d3ee] shadow-[0_0_10px_rgba(34,211,238,0.6)] transition-[width] duration-500 ease-out"

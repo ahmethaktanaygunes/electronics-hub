@@ -50,6 +50,7 @@ function LessonPage() {
   const t = useUi();
   const { lang } = useLanguage();
   const text = lessonText(lesson, lang);
+  const syllabus = text.syllabus ?? lesson.syllabus;
   const View = LESSON_VIEWS[lesson.id];
 
   return (
@@ -90,10 +91,10 @@ function LessonPage() {
 
               <div className="mt-4 grid grid-cols-1 border-t border-l border-rule sm:grid-cols-2 lg:grid-cols-4">
                 {[
-                  [t.topics, lesson.syllabus.topics.title],
-                  [t.componentLabel, lesson.syllabus.component.title],
-                  [t.law, lesson.syllabus.law.title],
-                  [t.circuit, lesson.syllabus.circuit.title],
+                  [t.topics, syllabus.topics.title],
+                  [t.componentLabel, syllabus.component.title],
+                  [t.law, syllabus.law.title],
+                  [t.circuit, syllabus.circuit.title],
                 ].map(([k, v]) => (
                   <div key={k} className="-mt-px -ml-px border-t border-l border-rule px-4 py-3">
                     <div className="label">{k}</div>
@@ -112,11 +113,13 @@ function LessonPage() {
             <div className="mx-auto max-w-[1360px] px-5 py-12">
               <div className="panel">
                 <div className="panel-head">
-                  <span>{t.syllabus} · {t.module.toLowerCase()} {lesson.id}</span>
+                  <span>
+                    {t.syllabus} · {t.module.toLowerCase()} {lesson.id}
+                  </span>
                   <span>{t.comingSoon}</span>
                 </div>
                 <div className="grid grid-cols-1 gap-6 px-4 py-4 md:grid-cols-2">
-                  {Object.values(lesson.syllabus).map((block: LessonTopic) => (
+                  {Object.values(syllabus).map((block: LessonTopic) => (
                     <div key={block.title}>
                       <h3 className="text-[15px] font-semibold tracking-tight">{block.title}</h3>
                       <ul className="mt-2 space-y-1">
@@ -130,9 +133,7 @@ function LessonPage() {
                   ))}
                 </div>
               </div>
-              <p className="mt-6 text-[14px] text-muted-foreground">
-                {t.unpublishedLesson}
-              </p>
+              <p className="mt-6 text-[14px] text-muted-foreground">{t.unpublishedLesson}</p>
             </div>
           </section>
         )}
@@ -142,13 +143,25 @@ function LessonPage() {
           <span className="flex items-center gap-2">
             <HElectronicsLogo size={20} title="" glow={false} />
             <span className="value text-[13px] font-semibold">
-              Electronics with <span className="text-signal">Haktan</span>
+              {lang === "tr" ? (
+                <>
+                  Haktan ile <span className="text-signal">Elektronik</span>
+                </>
+              ) : (
+                <>
+                  Electronics with <span className="text-signal">Haktan</span>
+                </>
+              )}
             </span>
           </span>
           <Link to="/" hash="curriculum" className="label hover:text-foreground">
             ← {t.backToLessonIndex}
           </Link>
-          <span className="label">Track: Basic Electronics · doc rev 1.0</span>
+          <span className="label">
+            {lang === "tr"
+              ? "Program: Temel Elektronik · belge sürümü 1.0"
+              : "Track: Basic Electronics · doc rev 1.0"}
+          </span>
         </div>
       </footer>
     </div>
